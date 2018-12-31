@@ -22,33 +22,27 @@ before_install:
 script:
   - |
     bazel \
-      --output_base=$HOME/.cache/bazel \
       --host_jvm_args=-Xmx500m \
       --host_jvm_args=-Xms500m \
       build \
-      --experimental_repository_cache="$HOME/.bazel_repository_cache" \
       --local_resources=400,1,1.0 \
       --test_tag_filters=-dev \
       --platforms=@io_bazel_rules_go//go/toolchain:linux_amd64 \
       @terraform_verifier//...
   - |
     bazel \
-      --output_base=$HOME/.cache/bazel \
       --host_jvm_args=-Xmx500m \
       --host_jvm_args=-Xms500m \
       build \
-      --experimental_repository_cache="$HOME/.bazel_repository_cache" \
       --local_resources=400,1,1.0 \
       --test_tag_filters=-dev \
       --platforms=@io_bazel_rules_go//go/toolchain:darwin_amd64 \
       @terraform_verifier//...
   - |
     bazel \
-      --output_base=$HOME/.cache/bazel \
       --host_jvm_args=-Xmx500m \
       --host_jvm_args=-Xms500m \
       build \
-      --experimental_repository_cache="$HOME/.bazel_repository_cache" \
       --local_resources=400,1,1.0 \
       --test_tag_filters=-dev \
       --platforms=@io_bazel_rules_go//go/toolchain:windows_amd64 \
