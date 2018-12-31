@@ -7,14 +7,14 @@ osx_image: xcode8.3
 language: java
 
 os:
-  - osx 
+  - linux
 
 env:
   - V=0.19.2
 
 before_install:
   - |
-    URL="https://github.com/bazelbuild/bazel/releases/download/${V}/bazel-${V}-installer-darwin-x86_64.sh"
+    URL="https://github.com/bazelbuild/bazel/releases/download/${V}/bazel-${V}-installer-linux-x86_64.sh"
     wget -O install.sh "${URL}"
     chmod +x install.sh
     ./install.sh --user
@@ -26,7 +26,6 @@ script:
       --host_jvm_args=-Xms500m \
       build \
       --local_resources=400,1,1.0 \
-      --test_tag_filters=-dev \
       --platforms=@io_bazel_rules_go//go/toolchain:linux_amd64 \
       @terraform_verifier//...
   - |
@@ -35,7 +34,6 @@ script:
       --host_jvm_args=-Xms500m \
       build \
       --local_resources=400,1,1.0 \
-      --test_tag_filters=-dev \
       --platforms=@io_bazel_rules_go//go/toolchain:darwin_amd64 \
       @terraform_verifier//...
   - |
@@ -44,7 +42,6 @@ script:
       --host_jvm_args=-Xms500m \
       build \
       --local_resources=400,1,1.0 \
-      --test_tag_filters=-dev \
       --platforms=@io_bazel_rules_go//go/toolchain:windows_amd64 \
       @terraform_verifier//...
 notifications:
