@@ -8,20 +8,13 @@ language: java
 
 os:
   - linux
-  - osx
 
 env:
   - V=0.19.2
 
 before_install:
   - |
-    if [[ "${TRAVIS_OS_NAME}" == "osx" ]]; then
-      OS=darwin
-    else
-      sysctl kernel.unprivileged_userns_clone=1
-      OS=linux
-    fi
-    URL="https://github.com/bazelbuild/bazel/releases/download/${V}/bazel-${V}-installer-${OS}-x86_64.sh"
+    URL="https://github.com/bazelbuild/bazel/releases/download/${V}/bazel-${V}-installer-linux-x86_64.sh"
     wget -O install.sh "${URL}"
     chmod +x install.sh
     ./install.sh --user
@@ -36,6 +29,38 @@ script:
       --experimental_repository_cache="$HOME/.bazel_repository_cache" \
       --local_resources=400,1,1.0 \
       --test_tag_filters=-dev \
+      --platforms=@io_bazel_rules_go//go/toolchain:linux_amd64 \
+      @terraform_verifier//...
+  - |
+    bazel \
+      --output_base=$HOME/.cache/bazel \
+      --host_jvm_args=-Xmx500m \
+      --host_jvm_args=-Xms500m \
+      build \
+      --experimental_repository_cache="$HOME/.bazel_repository_cache" \
+      --local_resources=400,1,1.0 \
+      --test_tag_filters=-dev \
+      --platforms=@io_bazel_rules_go//go/toolchain:darwin_amd64 \
+      @terraform_verifier//...
+  - |
+    bazel \
+      --output_base=$HOME/.cache/bazel \
+      --host_jvm_args=-Xmx500m \
+      --host_jvm_args=-Xms500m \
+      build \
+      --experimental_repository_cache="$HOME/.bazel_repository_cache" \
+      --local_resources=400,1,1.0 \
+      --test_tag_filters=-dev \
+      --platforms=@io_bazel_rules_go//go/toolchain:windows_amd64 \
       @terraform_verifier//...
 notifications:
   email: false
+deploy:
+  provider: releases
+  file:
+    - "./bazel-out/darwin_amd64_pure_stripped/hashicorp_verfier"
+    - "./bazel-out/linux_amd64_stripped/hashicorp_verfier"
+    - "./bazel-out/windows_amd64_pure_stripped/hashicorp_verfier"
+  skip_cleanup: true
+  on:
+    tags: true
