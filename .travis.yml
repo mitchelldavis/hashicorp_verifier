@@ -7,14 +7,14 @@ osx_image: xcode8.3
 language: java
 
 os:
-  - linux
+  - osx 
 
 env:
   - V=0.19.2
 
 before_install:
   - |
-    URL="https://github.com/bazelbuild/bazel/releases/download/${V}/bazel-${V}-installer-linux-x86_64.sh"
+    URL="https://github.com/bazelbuild/bazel/releases/download/${V}/bazel-${V}-installer-osx-x86_64.sh"
     wget -O install.sh "${URL}"
     chmod +x install.sh
     ./install.sh --user
