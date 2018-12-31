@@ -1,4 +1,4 @@
-workspace(name = "terraform_verifier")
+workspace(name = "hashicorp_verifier")
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
