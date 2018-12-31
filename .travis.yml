@@ -19,6 +19,8 @@ before_install:
     chmod +x install.sh
     ./install.sh --user
     rm -f install.sh
+  - sudo apt-get update
+  - sudo apt-get install -y tree
 script:
   - |
     bazel \
@@ -28,7 +30,7 @@ script:
       --local_resources=400,1,1.0 \
       --config=ci \
       @terraform_verifier//...
-  - ls ./bazel-out
+  - tree .
 notifications:
   email: false
 deploy:
@@ -37,7 +39,7 @@ deploy:
   file:
     - "./bazel-out/k8-fastbuild/bin/hashicorp_verifier/darwin_amd64_pure_stripped/hashicorp_verfier_darwin_amd64"
     - "./bazel-out/k8-fastbuild/bin/hashicorp_verifier/linux_amd64_pure_stripped/hashicorp_verfier_linux_amd64"
-    - "./bazel-out/k8-fastbuild/bin/hashicorp_verifier/windows_amd64_pure_stripped/hashicorp_verfier_windows_amd64"
+    - "./bazel-out/k8-fastbuild/bin/hashicorp_verifier/windows_amd64_pure_stripped/hashicorp_verfier_windows_amd64.exe"
   skip_cleanup: true
   draft: true
   on:
