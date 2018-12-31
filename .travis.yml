@@ -31,8 +31,7 @@ script:
       --config=ci \
       @terraform_verifier//...
   - tree .
-  - tree ./bazel-out
-  - tree ./bazel-out/k8-fastbuild
+  - tree ./bazel-bin
 notifications:
   email: false
 deploy:
