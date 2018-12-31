@@ -14,7 +14,7 @@ env:
 
 before_install:
   - |
-    URL="https://github.com/bazelbuild/bazel/releases/download/${V}/bazel-${V}-installer-osx-x86_64.sh"
+    URL="https://github.com/bazelbuild/bazel/releases/download/${V}/bazel-${V}-installer-darwin-x86_64.sh"
     wget -O install.sh "${URL}"
     chmod +x install.sh
     ./install.sh --user
@@ -58,8 +58,8 @@ notifications:
 deploy:
   provider: releases
   file:
-    - "./bazel-out/darwin_amd64_pure_stripped/hashicorp_verfier"
-    - "./bazel-out/linux_amd64_stripped/hashicorp_verfier"
+    - "./bazel-out/darwin_amd64_stripped/hashicorp_verfier"
+    - "./bazel-out/linux_amd64_pure_stripped/hashicorp_verfier"
     - "./bazel-out/windows_amd64_pure_stripped/hashicorp_verfier"
   skip_cleanup: true
   on:
