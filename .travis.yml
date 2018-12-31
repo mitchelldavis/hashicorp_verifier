@@ -28,7 +28,7 @@ script:
       --local_resources=400,1,1.0 \
       --config=ci \
       @terraform_verifier//...
-  - find ./bazel-bin -maxdepth 3
+  - find ./bazel-bin/hashicorp_verifier -maxdepth 2
 notifications:
   email: false
 deploy:
