@@ -27,34 +27,16 @@ script:
       build \
       --local_resources=400,1,1.0 \
       --config=ci \
-      --platforms=@io_bazel_rules_go//go/toolchain:linux_amd64 \
-      @terraform_verifier//...
-  - |
-    bazel \
-      --host_jvm_args=-Xmx500m \
-      --host_jvm_args=-Xms500m \
-      build \
-      --local_resources=400,1,1.0 \
-      --config=ci \
-      --platforms=@io_bazel_rules_go//go/toolchain:darwin_amd64 \
-      @terraform_verifier//...
-  - |
-    bazel \
-      --host_jvm_args=-Xmx500m \
-      --host_jvm_args=-Xms500m \
-      build \
-      --local_resources=400,1,1.0 \
-      --config=ci \
-      --platforms=@io_bazel_rules_go//go/toolchain:windows_amd64 \
       @terraform_verifier//...
 notifications:
   email: false
 deploy:
   provider: releases
+  api_key: $github_token 
   file:
-    - "./bazel-out/darwin_amd64_stripped/hashicorp_verfier"
-    - "./bazel-out/linux_amd64_pure_stripped/hashicorp_verfier"
-    - "./bazel-out/windows_amd64_pure_stripped/hashicorp_verfier"
+    - "./bazel-out/darwin_amd64_pure_stripped/hashicorp_verfier_darwin_amd64"
+    - "./bazel-out/linux_amd64_pure_stripped/hashicorp_verfier_linux_amd64"
+    - "./bazel-out/windows_amd64_pure_stripped/hashicorp_verfier_windows_amd64"
   skip_cleanup: true
   on:
     tags: true
