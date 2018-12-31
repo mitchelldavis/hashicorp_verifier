@@ -35,9 +35,9 @@ deploy:
   provider: releases
   api_key: $github_token 
   file:
-    - "./bazel-out/darwin_amd64_pure_stripped/hashicorp_verfier_darwin_amd64"
-    - "./bazel-out/linux_amd64_pure_stripped/hashicorp_verfier_linux_amd64"
-    - "./bazel-out/windows_amd64_pure_stripped/hashicorp_verfier_windows_amd64"
+    - "./bazel-out/k8-fastbuild/bin/hashicorp_verifier/darwin_amd64_pure_stripped/hashicorp_verfier_darwin_amd64"
+    - "./bazel-out/k8-fastbuild/bin/hashicorp_verifier/linux_amd64_pure_stripped/hashicorp_verfier_linux_amd64"
+    - "./bazel-out/k8-fastbuild/bin/hashicorp_verifier/windows_amd64_pure_stripped/hashicorp_verfier_windows_amd64"
   skip_cleanup: true
   draft: true
   on:
