@@ -1,7 +1,67 @@
-terraform_verifier
+hashicorp_verifier
 ===============
 
-This is a golang one stop shop for verifying [Hashicorp](https://www.hashicorp.com/) files.
+This is a golang one stop shop for verifying [Hashicorp](https://www.hashicorp.com/) files.  The process of downloading and verifying hashicorp tools within builds, especially, [Bazel](https://bazel.build/) builds, is cumbersome across platforms.  This tool helps unify the functionality needed to verify [pgp](https://en.wikipedia.org/wiki/Pretty_Good_Privacy) signatures and checksums.
+
+According to Hashicorp's [security](https://www.hashicorp.com/security) documentation, the steps for each tool downloaded are:
+
+- Download the binary, SHASUM, and SHASUM.sig files
+- Verify the SHASUM file is properly signed
+- Verify the SHASUM in the file matches the binary
+
+Their documentation even has an example that requires [gpg](https://www.gnupg.org/) and [shasum](https://linux.die.net/man/1/shasum) to be installed.  This makes sense with popular linux distros, but get's difficult working with sandboxed environments.
+
+---
+
+```
+# The Hashicorp_Verifier is easy to use given that we have 
+# - terraform_0.11.11_SHA256SUM
+# - terraform_0.11.11_SHA256SUM.sig
+# - terraform_0.11.11_<os>_<arch>.zip
+# - hashicorp.pub
+#		This is the hashicorp public gpg key.
+#		It's published at https://www.hashicorp.com/security
+
+# To check the signature of the SHA256SUM files:
+hashicorp_verifier signature \
+	-key hashicorp.pub \
+	-sig terraform_0.11.11_SHA256SUM.sig \
+	-target terraform_0.11.11_SHA256SUM
+
+# To check the checksum of the binary:
+hashicorp_verifier checksum \
+	-shasum terraform_0.11.11_SHA256SUM
+	-target terraform_0.11.11_<os>_<arch>.zip
+```
+
+Build
+-----
+
+This tool was conceived when working through how to get hashicorp tools inside of Bazel builds, so it uses [Bazel]() to manage the build and to manage the cross compilation.
+
+```
+# At the root of the repository and 
+# with Bazel installed and on the path
+
+bazel build //...
+```
+
+The [TravisCi]() build uses a `ci` configuration for when it runs.  So, please make sure this passes before submitting a pull request.
+
+```
+bazel \
+  --host_jvm_args=-Xmx500m \
+  --host_jvm_args=-Xms500m \
+  build \
+  --local_resources=400,1,1.0 \
+  --config=ci \
+  @hashicorp_verifier//...
+```
+
+Contribute
+----------
+
+Of course I'm open to pull requests!
 
 License
 =======
