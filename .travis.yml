@@ -28,7 +28,6 @@ script:
       --local_resources=400,1,1.0 \
       --config=ci \
       @hashicorp_verifier//...
-  - find ./bazel-bin/external/hashicorp_verifier -maxdepth 3
 notifications:
   email: false
 deploy:
