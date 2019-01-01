@@ -37,7 +37,7 @@ hashicorp_verifier checksum \
 Build
 -----
 
-This tool was conceived when working through how to get hashicorp tools inside of Bazel builds, so it uses [Bazel]() to manage the build and to manage the cross compilation.
+This tool was conceived when working through how to get hashicorp tools inside of Bazel builds, so it uses [Bazel](https://bazel.build/) to manage the build and to manage the cross compilation.
 
 ```
 # At the root of the repository and 
@@ -46,7 +46,7 @@ This tool was conceived when working through how to get hashicorp tools inside o
 bazel build //...
 ```
 
-The [TravisCi]() build uses a `ci` configuration for when it runs.  So, please make sure this passes before submitting a pull request.
+The [TravisCi](https://travis-ci.org/mitchelldavis/terraform_verifier) build uses a `ci` configuration for when it runs.  So, please make sure this passes before submitting a pull request.
 
 ```
 bazel \
