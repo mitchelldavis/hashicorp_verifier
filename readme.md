@@ -34,6 +34,14 @@ hashicorp_verifier signature \
 hashicorp_verifier checksum \
 	-shasum terraform_0.11.11_SHA256SUM
 	-target terraform_0.11.11_<os>_<arch>.zip
+
+# Or, if you need the checksum before
+# you download the file:
+hashicorp_verifier extract \
+	-shasum terraform_0.11.11_SHA256SUM
+	-filename terraform_0.11.11_<os>_<arch>.zip
+
+94504f4a67bad612b5c8e3a4...
 ```
 
 Build
