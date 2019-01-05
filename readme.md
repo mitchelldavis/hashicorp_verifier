@@ -1,7 +1,7 @@
 hashicorp_verifier
 ===============
 
-[![Build Status](https://travis-ci.org/mitchelldavis/terraform_verifier.svg?branch=master)](https://travis-ci.org/mitchelldavis/terraform_verifier)
+[![Build Status](https://travis-ci.org/mitchelldavis/hashicorp_verifier.svg?branch=master)](https://travis-ci.org/mitchelldavis/hashicorp_verifier)
 
 This is a golang one stop shop for verifying [Hashicorp](https://www.hashicorp.com/) files.  The process of downloading and verifying hashicorp tools within builds, especially, [Bazel](https://bazel.build/) builds, is cumbersome across platforms.  This tool helps unify the functionality needed to verify [pgp](https://en.wikipedia.org/wiki/Pretty_Good_Privacy) signatures and checksums.
 
