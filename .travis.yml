@@ -23,7 +23,7 @@ deploy:
   file:
     - ".bin/hashicorp_verifier_darwin_amd64"
     - ".bin/hashicorp_verifier_linux_amd64"
-    - ".bin/hashicorp_verifier_windows_amd64"
+    - ".bin/hashicorp_verifier_windows_amd64.exe"
   skip_cleanup: true
   draft: true
   on:
