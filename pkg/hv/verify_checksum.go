@@ -1,16 +1,16 @@
-package main
+package hv
 
 import (
 	"bufio"
-	"log"
-	"os"
-	"io"
-	"strings"
 	"crypto/sha256"
 	"encoding/hex"
+	"io"
+	"log"
+	"os"
+	"strings"
 )
 
-func verify_checksum(checksumPathPtr *string, targetPathPtr *string, targetBasePtr *string) {
+func Verify_Checksum(checksumPathPtr *string, targetPathPtr *string, targetBasePtr *string) {
 	checksums := make(map[string]string)
 
 	checksumFile, err := os.Open(*checksumPathPtr)
@@ -45,7 +45,7 @@ func verify_checksum(checksumPathPtr *string, targetPathPtr *string, targetBaseP
 	if checksumFile_checksum, key_exists = checksums[*targetBasePtr]; !key_exists {
 		log.Fatalf("The Checksum file does not contain a checksum for %s", *targetBasePtr)
 	}
-    if checksumFile_checksum != targetFile_checksum {
+	if checksumFile_checksum != targetFile_checksum {
 		log.Fatalf("The checksums do not match: %s != %s", checksumFile_checksum, targetFile_checksum)
 	}
 }

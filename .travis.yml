@@ -1,10 +1,11 @@
 # trusty beta image has jdk8, gcc4.8.4
-dist: trusty
+dist: bionic
 sudo: required
-# xcode8 has jdk8
-osx_image: xcode8.3
 # Not technically required but suppresses 'Ruby' in Job status message.
-language: java
+language: go
+
+go:
+- 1.12.x
 
 os:
   - linux
@@ -12,31 +13,17 @@ os:
 env:
   - V=0.19.2
 
-before_install:
-  - |
-    URL="https://github.com/bazelbuild/bazel/releases/download/${V}/bazel-${V}-installer-linux-x86_64.sh"
-    wget -O install.sh "${URL}"
-    chmod +x install.sh
-    ./install.sh --user
-    rm -f install.sh
 script:
-  - |
-    bazel \
-      --host_jvm_args=-Xmx500m \
-      --host_jvm_args=-Xms500m \
-      build \
-      --local_resources=400,1,1.0 \
-      --config=ci \
-      @hashicorp_verifier//...
+  - make
 notifications:
   email: false
 deploy:
   provider: releases
   api_key: $github_token 
   file:
-    - "./bazel-bin/external/hashicorp_verifier/hashicorp_verifier/darwin_amd64_pure_stripped/hashicorp_verifier_darwin_amd64"
-    - "./bazel-bin/external/hashicorp_verifier/hashicorp_verifier/linux_amd64_pure_stripped/hashicorp_verifier_linux_amd64"
-    - "./bazel-bin/external/hashicorp_verifier/hashicorp_verifier/windows_amd64_pure_stripped/hashicorp_verifier_windows_amd64.exe"
+    - ".bin/hashicorp_verifier_darwin_amd64"
+    - ".bin/hashicorp_verifier_linux_amd64"
+    - ".bin/hashicorp_verifier_windows_amd64"
   skip_cleanup: true
   draft: true
   on:

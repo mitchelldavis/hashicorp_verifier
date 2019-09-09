@@ -1,4 +1,4 @@
-package main
+package hv
 
 import (
 	"io"
@@ -49,7 +49,7 @@ func decodeSignature(filename string) *packet.Signature {
 		log.Fatalf("Error opening signature file: %s", err)
 	}
 	defer in.Close()
-	
+
 	reader := packet.NewReader(in)
 	pkt, err := reader.Next()
 	if err != nil {
@@ -63,7 +63,7 @@ func decodeSignature(filename string) *packet.Signature {
 	return sig
 }
 
-func verify_signature(keyPathFile *string, sigPathFile *string, targetPathFile *string) {
+func Verify_Signature(keyPathFile *string, sigPathFile *string, targetPathFile *string) {
 	pubKey := decodePublicKey(*keyPathFile)
 	sig := decodeSignature(*sigPathFile)
 
