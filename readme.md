@@ -48,25 +48,8 @@ hashicorp_verifier extract \
 Build
 -----
 
-This tool was conceived when working through how to get hashicorp tools inside of Bazel builds, so it uses [Bazel](https://bazel.build/) to manage the build and to manage the cross compilation.
-
 ```
-# At the root of the repository and 
-# with Bazel installed and on the path
-
-bazel build //...
-```
-
-The [TravisCi](https://travis-ci.org/mitchelldavis/terraform_verifier) build uses a `ci` configuration for when it runs.  So, please make sure this passes before submitting a pull request.
-
-```
-bazel \
-  --host_jvm_args=-Xmx500m \
-  --host_jvm_args=-Xms500m \
-  build \
-  --local_resources=400,1,1.0 \
-  --config=ci \
-  @hashicorp_verifier//...
+make
 ```
 
 Contribute
