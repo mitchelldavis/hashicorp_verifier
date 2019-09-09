@@ -14,7 +14,7 @@ env:
   - V=0.19.2
 
 script:
-  - make
+  - GO111MODULE=on make
 notifications:
   email: false
 deploy:
